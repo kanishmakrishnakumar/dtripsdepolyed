@@ -168,7 +168,7 @@ export default {
     }),
     methods: {
       register() {       
-          axios.post('http://192.168.1.46:8991/api/auth/signup', {
+          axios.post('https://dtrips.herokuapp.com/api/auth/signup', {
                     "name" : this.name,
                     "email": this.email,
                     "username": this.email,
