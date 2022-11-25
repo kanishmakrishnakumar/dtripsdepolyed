@@ -32,7 +32,7 @@ export default {
     
     const uiConfig = {
       signInFlow: 'popup',
-      signinSuccessUrl: 'http://localhost:8080/',
+      signinSuccessUrl: 'https://dtrips-com-sley.vercel.app/',
       signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
