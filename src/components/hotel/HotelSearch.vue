@@ -215,7 +215,7 @@ import HotelDetails from './HotelDetails.vue';
           console.log(this.HotelCode);
           console.log(this.ResultIndex);
           console.log(this.Categoryid);
-          axios.post('http://192.168.1.40:8991/api/hotels/hotelinfo',{
+          axios.post('https://dtrips.herokuapp.com/api/hotels/hotelinfo',{
             // params:
             // {
               "HotelCode": this.HotelCode,
