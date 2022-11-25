@@ -254,7 +254,7 @@ import axios from 'axios'
           console.log(this.clientIp);
           const IPAddress = localStorage.getItem('IPAddress');
           console.log(IPAddress)
-              axios.post('http://192.168.1.40:8991/api/hotels/search',{
+              axios.post('https://dtrips.herokuapp.com/api/hotels/search',{
                     "CheckInDate": this.date1,
                     "NoOfNights": this.diff,
                     "ResultCount": 0,
