@@ -320,7 +320,7 @@ import axios from 'axios'
         SelectDestination(search){
           console.log('response.status');
           console.log(search);
-          axios.post("http://192.168.1.40:8991/api/city/page",{
+          axios.post("https://dtrips.herokuapp.com/api/city/page",{
               "off": 0,
               "on" :7,
               "keyword": this.search
@@ -345,7 +345,7 @@ import axios from 'axios'
           console.log(this.clientIp);
           const IPAddress = localStorage.getItem('IPAddress');
           console.log(IPAddress)
-              axios.post('http://192.168.1.40:8991/api/hotels/search',{
+              axios.post('https://dtrips.herokuapp.com/api/hotels/search',{
                     "CheckInDate": this.date1,
                     "NoOfNights": this.diff,
                     "ResultCount": 0,
