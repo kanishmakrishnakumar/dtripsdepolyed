@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <!-- <div> -->
+    <v-row class="back" align="center" justify="center">
     <v-card color="#3e154e">
-  <v-container fluid>
+  <v-container color="#3e154e" >
     <!-- <v-card
       color="#3e154e"
       height="480px"
@@ -26,15 +27,15 @@
 
 
       <div class="tabs mt-10"> 
-        <div class="nav-tabs">
+        <div class="nav-tabs mt-8">
           <div class="nav-item" @click="setActive('tab-1')" :class="{ 'active' : isActive('tab-1') }">
-            <v-icon size="42px" color="purple">mdi-home-city</v-icon>
+            <v-icon color="white">mdi-home-city</v-icon>
             <!-- <v-avatar><img
         src="hotel2.png"></v-avatar> -->
          <strong>Hotels</strong>   
           </div>
           <div class="nav-item"  @click="setActive('tab-2')" :class="{ 'active' : isActive('tab-2') }">
-            <v-icon size="42px" color="purple">mdi-airplane</v-icon>
+            <v-icon color="white">mdi-airplane</v-icon>
             <!-- <v-avatar><img
         src="icons/airplane1.png"></v-avatar> -->
          <strong>Flights</strong>  
@@ -52,7 +53,7 @@
             <v-icon color="white">mdi-car</v-icon>Cabs
           </div> -->
         </div>
-        <div class="tab-content">
+        <div class="tab-content mt-4">
           <div class="tab-pane" v-show="isActive('tab-1')">
             <!-- <div class="for-example"> -->
                <hotel-book/>
@@ -101,7 +102,8 @@
     <!-- https://www.kindpng.com/picc/m/26-266037_travel-png-free-download-8-de-maio-dia.png -->
     <!-- https://www.transparentpng.com/thumb/travel/Yz4LYk-travel-symbol-transparent-image.png -->
 
-  </div>
+  <!-- </div> -->
+</v-row>
 </template>
 
 <script>
@@ -138,6 +140,12 @@ import TrainBook from './train/TrainBook.vue';
 </script>
 
 <style>
+.back{
+/* height: 40%; */
+/* width: 10; */
+background-color: #3e154e;
+}
+
 .tabs{
   /* width: 1200px; */
   margin: 0 auto;
@@ -147,20 +155,28 @@ import TrainBook from './train/TrainBook.vue';
 
 .nav-tabs{
   display: flex;
-  /* background-color: #3e154e; */
+  border-radius: 70px;
+  border-color: #f04e6e;
+  border-style: solid;
+  border-width: 1px;
+  width: 300px;
+  height: 70px;
+  background-color: #92278f;
   /* width: 950px; */
   margin: 0 auto;
   position:100 ;
-  justify-content: left;
+  justify-content: center;
 }
 
 .nav-item{
-  color:white;
+  color:black;
   transition: all 150ms;
   cursor: pointer;
   /* background-color:#3e154e; */
+  /* height: 80px; */
   height: 80px;
-  width: 14.5%;
+  width: 150px;
+  /* width: 14.5%; */
   font-weight: 300;
   display: flex;
   justify-content: center;
@@ -171,9 +187,13 @@ import TrainBook from './train/TrainBook.vue';
 }
 
 .tab-content{
-  background-color:#92278f;
-  padding: 5px;
+  background-color:#f04e6e;
+  padding: 2px;
   justify-content: center;
+  border-top-left-radius: 40px ;
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
   /* width: 100%; */
   /* box-shadow: rgba(225,225,225,0.1); */
 }
@@ -185,8 +205,9 @@ import TrainBook from './train/TrainBook.vue';
 }
 
 .active{
-  color: rgb(0, 0, 0);
-  background-color:#ece8ed;
+  /* color: rgb(0, 0, 0); */
+  color: white;
+  /* background-color:#ece8ed; */
   justify-content: center;
   /* background-color: rgba(225,225,225,0.1); */
 }
@@ -195,10 +216,10 @@ import TrainBook from './train/TrainBook.vue';
   background-color: white;
   padding: 12px;
   /* height: 200px; */
-  border-top-left-radius: 6px ;
-  border-top-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-top-left-radius: 40px ;
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
   justify-content: center;
 }
 
