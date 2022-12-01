@@ -1,10 +1,10 @@
 <template>
     <div>
-    <v-toolbar flat max-height="45">
-        <!-- <div class="grey--text ml-12 mb-5"><v-icon>mdi-phone</v-icon> +91 7356 352111</div><v-icon color="white">mdi-phone</v-icon>  -->
-        <div class="grey--text  mb-5"><v-icon>mdi-email</v-icon> info@dtrips.com</div>  
+    <!-- <v-toolbar color="#3e154e" flat max-height="45">
+        <div class="grey--text ml-12 mb-5"><v-icon>mdi-phone</v-icon> +91 7356 352111</div><v-icon color="white">mdi-phone</v-icon> 
+        <div class="grey--text  mb-5"><v-icon >mdi-email</v-icon> info@dtrips.com</div>  
         <v-spacer></v-spacer>
-        <!-- <v-hover v-slot="{ hover }">
+        <v-hover v-slot="{ hover }">
           <div
               :elevation="hover ? 12 : 2"
               :class="{ 'on-hover': hover }"
@@ -67,30 +67,30 @@
             <v-icon size="20px" class="grey--text" :class="{ 'show-btns': hover }" icon>
               mdi-instagram
             </v-icon></a>
-          </v-btn></div></v-hover>| -->
+          </v-btn></div></v-hover>|
           <v-hover v-slot="{ hover }">
           <div
               :elevation="hover ? 12 : 2"
               :class="{ 'on-hover': hover }"
             >
-          <v-btn outlined color="white" class="mr-12  mb-5" >
+          <v-btn outlined color="#3e154e" class="mr-12  mb-5" >
          <router-link to="/loginCard" style="text-decoration :none" class="grey--text" :class="{ 'show-btns': hover }" >
           <v-icon>mdi-account</v-icon>Join our Club</router-link> </v-btn>
          </div></v-hover>
-      </v-toolbar>
+      </v-toolbar> -->
   
-      <v-divider></v-divider>
+      <!-- <v-divider></v-divider> -->
       <!-- <v-app-bar
       color="white" flat
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
-      <v-toolbar flat>
+      <v-toolbar color="#3e154e" height="100px" flat>
         <router-link to="/" style="text-decoration :none">
-        <v-img src="logo_black.jpg" class="ml-12" max-width="150"></v-img> </router-link>
+        <v-img src="logo.png" class="ml-12" max-width="200"></v-img> </router-link>
         <v-spacer/>
         
-      <v-list class="d-none d-sm-flex align-center justify-center rounded mr-12">
-        <v-list-item link v-for="(menu,i) in menus" :key="i" :to="menu.route">
+      <v-list color="#3e154e" class="d-none d-sm-flex align-center justify-center rounded mr-12">
+        <v-list-item class="white--text" link v-for="(menu,i) in menus" :key="i" :to="menu.route">
           <v-list-item-title>{{menu.title}}</v-list-item-title>
         </v-list-item>
         <!-- <v-btn color="#92278f">
