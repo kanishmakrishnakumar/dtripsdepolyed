@@ -49,14 +49,19 @@
             single-line
             hide-details 
             v-bind="attrs"
-            v-on="on"
+            v-on="on" 
             @input="SelectDestination"
           ></v-text-field>
         </template>
-        <v-card class="mx-auto" max-height="200" max-width="344">
+        <v-card class="mx-auto" max-height="300" max-width="344">
+          <span class="mx-auto" v-if="filterDestination.length === 0">No result found</span>
           <v-list>
           <v-list-item @click="selectItem(place)" v-for="(place, index) in filterDestination" :key="`place-${index}`">
-          {{place.destination}},{{ place.country }}
+            <v-icon>mdi-map-marker-outline</v-icon>
+          <h5>{{place.destination}}</h5> &nbsp;-
+         <div> <h5 class="text-center grey--text text-pre-wrap">
+            {{ place.country }}
+                      </h5></div>
           </v-list-item>
           </v-list>
         </v-card>
@@ -307,7 +312,7 @@ import axios from 'axios'
           // https://dtrips.herokuapp.com
           axios.post("https://dtrips.herokuapp.com/api/city/page",{
               "off": 0,
-              "on" :7,
+              "on" : 5,
               "keyword": this.search
           })
           .then((response)=>{
