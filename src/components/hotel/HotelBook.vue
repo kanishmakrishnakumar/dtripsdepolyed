@@ -13,16 +13,23 @@
         </v-tab>
         </v-tabs>
         <br>
+        <v-dialog
+          content-class="elevation-0"
+          v-model="isLoggingIn"
+          persistent
+          width="600"
+        >
+      <!-- <v-card
+
+      >
+        <v-card-text> -->
+          <v-img src="loadingHotel.gif"></v-img>
+        <!-- </v-card-text>
+      </v-card> -->
+    </v-dialog>
+
     <v-form @submit.prevent>
     <v-card class="ml-6 mr-6" flat>
-      <!-- <div>
-    <input v-model="searchTerm" type="text">
-    <div></div>
-    <div v-for="place in filterByTerm" :key="place.id">
-      <span>{{ place.country }}</span>
-    </div>
-  </div> -->
-      <!-- <v-btn @click="SelectDestination">select</v-btn> -->
       <v-row>
             <v-col
           cols="12"
@@ -30,36 +37,7 @@
           md="2" 
           dense
         >
-        <!-- <v-text-field color="purple"
-            label="Select destination"
-            outlined
-            v-model="searchTerm"
-            single-line
-            hide-details 
-            v-bind="attrs"
-            v-on="on"
-          ></v-text-field> -->
-        <section class="dropdown-wrapper">
-          <div @click="isVisible = !isVisible" class="selected-item">
-            <span v-if="selectedItem">{{destPlace}}, {{selectedItem}}</span>
-            <span v-else>Select Destination</span>
-          </div> 
-          <div v-if="isVisible" class="dropdown-popover">
-            <input v-model="search" type="text" placeholder="Search Destination" @input="SelectDestination">
-            <span v-if="filterDestination.length === 0">No result found</span>
-            <div class="options">
-              <ul>
-                <li @click="selectItem(place)" v-for="(place, index) in filterDestination" :key="`place-${index}`"> {{place.destination}},{{ place.country }}</li>
-              </ul>
-            </div>
-          </div> 
-        </section>
-        <!-- <v-select color="purple"
-            :items="hotels"
-            label="Select destination"
-            outlined
-            ></v-select> -->
-            <!-- <v-menu
+            <v-menu
             v-model="select"
             ref="menu" offset-y :close-on-content-click="false"
           >
@@ -67,20 +45,22 @@
           <v-text-field color="purple"
             label="Select destination"
             outlined
-            v-model="searchTerm"
+            v-model="search"
             single-line
             hide-details 
             v-bind="attrs"
             v-on="on"
+            @input="SelectDestination"
           ></v-text-field>
         </template>
-        <div v-if="filterByTerm.length">
-        <v-list v-for="place in filterByTerm" :key="place.id">
-          <span>{{ place.country }}</span>
-        </v-list>
-        </div>
-        <div v-else>No result found</div>
-            </v-menu> -->
+        <v-card class="mx-auto" max-height="200" max-width="344">
+          <v-list>
+          <v-list-item @click="selectItem(place)" v-for="(place, index) in filterDestination" :key="`place-${index}`">
+          {{place.destination}},{{ place.country }}
+          </v-list-item>
+          </v-list>
+        </v-card>
+            </v-menu>
           </v-col>
           <v-col
             cols="12"
@@ -106,6 +86,7 @@
               ></v-text-field>
             </template>
             <v-date-picker
+              color="purple"
               v-model="date1"
               :min="nowDate"
               @input="checkin = false"
@@ -136,6 +117,7 @@
               ></v-text-field>
             </template>
             <v-date-picker
+              color="purple"
               v-model="date2"
               :min="date1"
               @input="checkout = false"
@@ -218,7 +200,8 @@
           md="2"
         >
         <!-- <router-link to="/hotelsearch" style="text-decoration :none"> -->
-          <v-btn height="55" width="200" color="#92278f" type="Submit" @click="getHoteldetails" dark><v-icon>mdi-magnify</v-icon>Search</v-btn>
+          <v-btn height="55" width="200" color="#92278f" type="Submit" :disabled="dialog"
+      :loading="isLoggingIn" @click="getHoteldetails" dark><v-icon>mdi-magnify</v-icon>Search</v-btn>
         <!-- </router-link> -->
           </v-col>
     </v-row>
@@ -234,8 +217,7 @@ import axios from 'axios'
   export default {
     data:()=>({
       tab: null,
-      search: '',
-      // isLoggingIn: false,
+      isLoggingIn: false,
       dialog: false,
       select: false,
       date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
@@ -255,17 +237,18 @@ import axios from 'axios'
       diff:'',
       clientIp:'',
       search:'',
-      selectedItem: null,
+      // selectedItem: null,
       isVisible: false,
       destination:[],
       destPlace:'',
       cityId:'',
-      countrycode:''
+      countrycode:'',
       
     }),
 
     computed: {
         filterDestination(){
+          console.log(this.search);
             return this.destination.filter(place => {
               return place.country.toLowerCase().includes(this.search.trim().toLowerCase()) || 
                 place.destination.toLowerCase().includes(this.search.trim().toLowerCase());
@@ -309,8 +292,9 @@ import axios from 'axios'
 
       methods:{
         selectItem(place){
-          this.selectedItem = place.country ;
-          this.destPlace = place.destination;
+          this.search = place.destination + ',' + place.country ;
+          this.select = false;
+          // this.destPlace = place.destination;
           this.countrycode = place.countrycode;
           console.log(this.countrycode);
           this.cityId = place.cityid;
@@ -320,6 +304,7 @@ import axios from 'axios'
         SelectDestination(search){
           console.log('response.status');
           console.log(search);
+          // https://dtrips.herokuapp.com
           axios.post("https://dtrips.herokuapp.com/api/city/page",{
               "off": 0,
               "on" :7,
@@ -328,8 +313,8 @@ import axios from 'axios'
           .then((response)=>{
                 console.log(response.status);
                 console.log(response.data);
-                this.dest = response.data;
-                this.destination = [...new Set(this.dest)]
+                this.destination = response.data;
+                // this.destination = [...new Set(this.dest)]
                 console.log("this.destination")
                 console.log(this.destination)
           }).catch((error)=>{
@@ -337,6 +322,7 @@ import axios from 'axios'
           });
       },
         getHoteldetails(){
+          this.isLoggingIn = true;
           console.log(this.date1);
            const Night = localStorage.getItem('DateDiff');
           console.log(Night);
@@ -382,12 +368,14 @@ import axios from 'axios'
               localStorage.setItem('TraceId',response.data.HotelSearchResult.TraceId);
               // localStorage.setItem('CategoryId',response.data.HotelSearchResult.HotelResults.SupplierHotelCodes.CategoryId);
               localStorage.setItem('Token',response.data.Token);
+              // localStorage.setItem('ResultIndex',response.data.HotelSearchResult.HotelResults.ResultIndex);
+              // localStorage.setItem('HotelCode',response.data.HotelSearchResult.HotelResults.HotelCode);
               // console.log(response.data.HotelSearchResult.HotelResults[0].HotelName);
               // this.hotels = response.data.HotelSearchResult.HotelResults;
               console.log(response.data);
               // console.log(this.hotels);
               }).catch((error)=>{
-                  alert( `Something went wrong`)
+                  alert( error)
               console.log(error);
               })          
         },
